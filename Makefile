@@ -8,12 +8,14 @@ SRCS := $(wildcard $(SRCSDIR)/*.c)
 BUILDDIR := ./build
 OBJS := $(patsubst $(SRCSDIR)/%.c, $(BUILDDIR)/%.o, $(SRCS))
 
-default: $(BUILDDIR)/$(TARGET)
+EXECUTABLE := $(BUILDDIR)/$(TARGET)
+
+default: $(EXECUTABLE)
 
 debug: CCFLAGS += -g -DDEBUG
-debug: $(TARGET)
+debug: $(EXECUTABLE)
 
-$(BUILDDIR)/$(TARGET): $(OBJS)
+$(EXECUTABLE): $(OBJS)
 	$(CC) $^ $(CCFLAGS) -o $@
 
 $(BUILDDIR)/%.o: $(SRCSDIR)/%.c
