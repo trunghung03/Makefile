@@ -12,6 +12,7 @@ EXECUTABLE := $(BUILDDIR)/$(TARGET)
 
 default: $(EXECUTABLE)
 
+# Added flags for debugging
 debug: CCFLAGS += -g -DDEBUG
 debug: $(EXECUTABLE)
 
@@ -19,6 +20,8 @@ $(EXECUTABLE): $(OBJS)
 	$(CC) $^ $(CCFLAGS) -o $@
 
 $(BUILDDIR)/%.o: $(SRCSDIR)/%.c
+	# make target's directory if does not exist
+	@mkdir -p $(@D)
 	$(CC) $(CCFLAGS) -c $< -o $@
 
 clean:
